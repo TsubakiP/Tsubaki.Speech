@@ -11,7 +11,7 @@ namespace Tsubaki.Speech.ConsoleDebugger
         [STAThread]
         private static void Main(string[] args)
         {
-            var vr = new VoiceRecognizer();
+            var vr = new VoiceRecognizer("secret.json");
 
             vr.Start();
             Console.ReadKey();

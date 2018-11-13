@@ -15,7 +15,7 @@ namespace Tsubaki.Speech
 
     public sealed class VoiceRecognizer : SoundRecorder
     {
-        private const string GAC = "GOOGLE_APPLICATION_CREDENTIALS";
+        private const string GOOGLE_APPLICATION_CREDENTIALS = "GOOGLE_APPLICATION_CREDENTIALS";
         private readonly RecognitionConfig _config;
         private SpeechClient _speech;
 
@@ -26,7 +26,7 @@ namespace Tsubaki.Speech
         /// <summary>
         /// </summary>
         /// <param name="secret"></param>
-        public VoiceRecognizer(string secret = "secret.json")
+        public VoiceRecognizer(string secret)
         {
             this._config = new RecognitionConfig
             {
@@ -74,18 +74,13 @@ namespace Tsubaki.Speech
                 var file = new FileInfo(secret);
                 if (!file.Exists)
                     throw new FileNotFoundException("Can't found client-secret file");
-
-                Environment.SetEnvironmentVariable(GAC, file.FullName, Target);
-
-                Console.WriteLine(Environment.GetEnvironmentVariable(GAC, Target));
-                Console.WriteLine();
+                Environment.SetEnvironmentVariable(GOOGLE_APPLICATION_CREDENTIALS, file.FullName, Target);
                 this._speech = SpeechClient.Create();
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e.Message);
-                Environment.SetEnvironmentVariable(GAC, null, Target);
-                throw e;
+                Environment.SetEnvironmentVariable(GOOGLE_APPLICATION_CREDENTIALS, null, Target);
+                throw;
             }
         }
     }

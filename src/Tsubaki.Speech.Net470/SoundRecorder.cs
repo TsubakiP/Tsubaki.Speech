@@ -17,7 +17,7 @@ namespace Tsubaki.Speech
             public WaveStream WaveStream { get; }
 
             internal StoppedEventArgs(WaveStream stream)
-                            => this.WaveStream = stream;
+                => this.WaveStream = stream;
         }
 
         private readonly List<byte> _raw;
@@ -28,8 +28,6 @@ namespace Tsubaki.Speech
         protected event EventHandler RecordingStarted;
 
         protected event EventHandler<StoppedEventArgs> RecordingStopped;
-
-        public WaveInCapabilities InputDevice { get; set; }
 
         public SoundRecorder()
         {
